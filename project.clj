@@ -4,7 +4,9 @@
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [compojure "1.6.1"]
-                 [ring/ring-defaults "0.3.2"]]
+                 [ring/ring-defaults "0.3.2"]
+                 [com.github.seancorfield/next.jdbc "1.3.981"]
+                 [org.postgresql/postgresql "42.7.4"]]
   :plugins [[lein-ring "0.12.5"]]
   :ring {:handler tuan-codingapp-clj.handler/app}
   :profiles

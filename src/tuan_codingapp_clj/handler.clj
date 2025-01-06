@@ -1,7 +1,8 @@
 (ns tuan-codingapp-clj.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [next.jdbc :as jdbc]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
