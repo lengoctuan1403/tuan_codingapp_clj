@@ -2,7 +2,8 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [next.jdbc :as jdbc]))
+            [next.jdbc :as jdbc]
+            [clojure.string :as string]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
@@ -17,14 +18,42 @@
 
 (def ds (jdbc/get-datasource db))
 
-(jdbc/execute! ds ["select * from actor"]) 
+;; Start
 
-(jdbc/execute! ds ["
-create table address3 (
-  id serial primary key,
-  name varchar(32),
-  email varchar(255)
-)"])
+(defn handle_string
+  [params]
+  (if (= nil (keys params))
+    ""
+    (str " WHERE " (string/join " AND " (map (fn [[key val]]
+                                               (if (number? val)
+                                                 (str (name key) " = " val)
+                                                 (str (name key) " = " "'" val "'"))) params)))))
 
-(jdbc/execute! ds ["insert into address3 (name, email)
-                    values ('lengoctuan', 'tuan@gmail.com')"])
+
+(defn find-customer
+  [ds params]
+  (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_string params))]))
+
+(find-customer ds {:customer_id 1 :first_name "Mary"})
+
+(find-customer ds {:customer_id 2 :first_name "Patricia"})
+
+(defn name-key
+  [params]
+
+  (map (fn [[k v]]  (str (name k) ", ")) params))
+
+  (defn handle_values
+    [params]
+    (map (fn [[k v]] (str v ", ")) params))
+
+
+(defn replace-customer
+  [ds params]
+  (jdbc/execute! ds [(str "DELETE FROM customer WHERE customer_id = " (params :customer_id) "; "
+                          "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
+
+(replace-customer ds {:customer_id 604 :first_name "Tuan" :lastname "Le Ngoc" :email "oktestmail"})
+
+
+
