@@ -8,7 +8,6 @@
 (defroutes app-routes
   (GET "/" [] "Hello World")
   (route/not-found "Not Found"))
-
 (def app
   (wrap-defaults app-routes site-defaults))
 
@@ -41,11 +40,17 @@
 (defn name-key
   [params]
 
-  (map (fn [[k v]]  (str (name k) ", ")) params))
+  (string/join ", " (map (fn [[k v]]  (str (name k))) params)))
 
-  (defn handle_values
-    [params]
-    (map (fn [[k v]] (str v ", ")) params))
+(defn handle_values
+  [params]
+  (string/join ", " (map (fn [[k v]] (if (number? v)
+                                       (str v)
+                                       (str "'" v "'"))) params)))
+(def ok {:key1 "tuan" :key2 14 :key "lengoc"})
+(str "INSERT " (handle_values ok))
+(str "INSERT INTO (" (name-key ok) ")")
+
 
 
 (defn replace-customer
@@ -53,7 +58,6 @@
   (jdbc/execute! ds [(str "DELETE FROM customer WHERE customer_id = " (params :customer_id) "; "
                           "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
 
-(replace-customer ds {:customer_id 604 :first_name "Tuan" :lastname "Le Ngoc" :email "oktestmail"})
-
+(replace-customer ds {:customer_id 1 :first_name "dit" :last_name "error hoai" :email "loi@cdmm.com"})
 
 
