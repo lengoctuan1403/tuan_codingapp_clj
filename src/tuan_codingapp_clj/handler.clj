@@ -28,14 +28,9 @@
                                                  (str (name key) " = " val)
                                                  (str (name key) " = " "'" val "'"))) params)))))
 
-
 (defn find-customer
   [ds params]
   (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_string params))]))
-
-(find-customer ds {:customer_id 1 :first_name "Mary"})
-
-(find-customer ds {:customer_id 2 :first_name "Patricia"})
 
 (defn name-key
   [params]
@@ -47,17 +42,9 @@
   (string/join ", " (map (fn [[k v]] (if (number? v)
                                        (str v)
                                        (str "'" v "'"))) params)))
-(def ok {:key1 "tuan" :key2 14 :key "lengoc"})
-(str "INSERT " (handle_values ok))
-(str "INSERT INTO (" (name-key ok) ")")
-
-
 
 (defn replace-customer
+
   [ds params]
   (jdbc/execute! ds [(str "DELETE FROM customer WHERE customer_id = " (params :customer_id) "; "
                           "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
-
-(replace-customer ds {:customer_id 1 :first_name "dit" :last_name "error hoai" :email "loi@cdmm.com"})
-
-

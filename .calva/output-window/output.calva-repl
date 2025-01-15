@@ -37,7 +37,7 @@ You can configure this with the setting:
 ; 
 
 ; Starting Jack-in: (cd /Users/lengoctuan/Public/tuan_codingapp_clj; lein update-in :dependencies conj '[nrepl,"1.1.1"]' -- update-in :plugins conj '[cider/cider-nrepl,"0.47.1"]' -- update-in '[:repl-options,:nrepl-middleware]' conj '["cider.nrepl/cider-middleware"]' -- repl :headless)
-; Using host:port 127.0.0.1:57009 ...
+; Using host:port 127.0.0.1:52736 ...
 ; Hooking up nREPL sessions ...
 ; Connected session: clj
 ; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
@@ -48,74 +48,85 @@ about why stdout printed to this file is prepended with `;` to be line comments.
 clj꞉user꞉> 
 ; Jack-in done.
 clj꞉user꞉> 
-; nREPL Connection was closed
-; Jacking in...
-; Connecting using "Leiningen" project type.
-; You can make Calva auto-select this.
-;   - See https://calva.io/connect-sequences/
-; 
-
-; Starting Jack-in: (cd /Users/lengoctuan/Public/tuan_codingapp_clj; lein update-in :dependencies conj '[nrepl,"1.1.1"]' -- update-in :plugins conj '[cider/cider-nrepl,"0.47.1"]' -- update-in '[:repl-options,:nrepl-middleware]' conj '["cider.nrepl/cider-middleware"]' -- repl :headless)
-; Using host:port 127.0.0.1:58021 ...
-; Hooking up nREPL sessions ...
-; Connected session: clj
-; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
-nil
-clj꞉user꞉> 
-; Jack-in done.
-clj꞉user꞉> 
-; Execution error (FileNotFoundException) at tuan-codingapp-clj.handler/eval13288$loading (form-init15110540097628562751.clj:1).
-; Could not locate nextjdbc__init.class, nextjdbc.clj or nextjdbc.cljc on classpath.
+; Syntax error compiling at (handler.clj:12:3).
+; Unable to resolve symbol: app-routes in this context
 clj꞉tuan-codingapp-clj.handler꞉> 
-; Execution error (FileNotFoundException) at tuan-codingapp-clj.handler/eval13322$loading (form-init15110540097628562751.clj:1).
-; Could not locate nextjdbc__init.class, nextjdbc.clj or nextjdbc.cljc on classpath.
+#'tuan-codingapp-clj.handler/app-routes
 clj꞉tuan-codingapp-clj.handler꞉> 
-; Syntax error compiling at (project.clj:1:1).
-; Unable to resolve symbol: defproject in this context
-clj꞉user꞉> 
-; nREPL Connection was closed
-; Jacking in...
-; Connecting using "Leiningen" project type.
-; You can make Calva auto-select this.
-;   - See https://calva.io/connect-sequences/
-; 
-
-; Starting Jack-in: (cd /Users/lengoctuan/Public/tuan_codingapp_clj; lein update-in :dependencies conj '[nrepl,"1.1.1"]' -- update-in :plugins conj '[cider/cider-nrepl,"0.47.1"]' -- update-in '[:repl-options,:nrepl-middleware]' conj '["cider.nrepl/cider-middleware"]' -- repl :headless)
-; Using host:port 127.0.0.1:58037 ...
-; Hooking up nREPL sessions ...
-; Connected session: clj
-; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
-nil
-clj꞉user꞉> 
-; Jack-in done.
-clj꞉user꞉> 
-; Execution error (FileNotFoundException) at tuan-codingapp-clj.handler/eval12355$loading (form-init8988794289101295200.clj:1).
-; Could not locate nextjdbc__init.class, nextjdbc.clj or nextjdbc.cljc on classpath.
+#'tuan-codingapp-clj.handler/app
 clj꞉tuan-codingapp-clj.handler꞉> 
-; Execution error (FileNotFoundException) at tuan-codingapp-clj.handler/eval12361$loading (form-init8988794289101295200.clj:1).
-; Could not locate nextjdbc__init.class, nextjdbc.clj or nextjdbc.cljc on classpath.
+#'tuan-codingapp-clj.handler/db
 clj꞉tuan-codingapp-clj.handler꞉> 
-; nREPL Connection was closed
-; Jacking in...
-; Connecting using "Leiningen" project type.
-; You can make Calva auto-select this.
-;   - See https://calva.io/connect-sequences/
-; 
-
-; Starting Jack-in: (cd /Users/lengoctuan/Public/tuan_codingapp_clj; lein update-in :dependencies conj '[nrepl,"1.1.1"]' -- update-in :plugins conj '[cider/cider-nrepl,"0.47.1"]' -- update-in '[:repl-options,:nrepl-middleware]' conj '["cider.nrepl/cider-middleware"]' -- repl :headless)
-; Using host:port 127.0.0.1:58052 ...
-; Hooking up nREPL sessions ...
-; Connected session: clj
-; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
-nil
-clj꞉user꞉> 
-; Jack-in done.
-clj꞉user꞉> 
-; Execution error (FileNotFoundException) at tuan-codingapp-clj.handler/eval12349$loading (form-init14361554781791475636.clj:1).
-; Could not locate nextjdbc__init.class, nextjdbc.clj or nextjdbc.cljc on classpath.
+#'tuan-codingapp-clj.handler/db
 clj꞉tuan-codingapp-clj.handler꞉> 
-; Execution error (FileNotFoundException) at tuan-codingapp-clj.handler/eval12515$loading (form-init14361554781791475636.clj:1).
-; Could not locate nextjdbc__init.class, nextjdbc.clj or nextjdbc.cljc on classpath.
+#'tuan-codingapp-clj.handler/ds
 clj꞉tuan-codingapp-clj.handler꞉> 
-nil
+#'tuan-codingapp-clj.handler/handle_string
+clj꞉tuan-codingapp-clj.handler꞉> 
+#'tuan-codingapp-clj.handler/find-customer
+clj꞉tuan-codingapp-clj.handler꞉> 
+; Execution error (ConnectException) at sun.nio.ch.Net/pollConnect (Net.java:-2).
+; Connection refused
+clj꞉tuan-codingapp-clj.handler꞉> 
+[#:customer{:customer_id 1,
+            :first_name "Mary",
+            :last_name "Smith",
+            :email "mary.smith@sakilacustomer.org",
+            :activebool true,
+            :create_date #inst "2006-02-13T17:00:00.000-00:00",
+            :last_update #inst "2013-05-26T07:49:45.738000000-00:00",
+            :active 1}]
+clj꞉tuan-codingapp-clj.handler꞉> 
+[#:customer{:customer_id 1,
+            :first_name "Mary",
+            :last_name "Smith",
+            :email "mary.smith@sakilacustomer.org",
+            :activebool true,
+            :create_date #inst "2006-02-13T17:00:00.000-00:00",
+            :last_update #inst "2013-05-26T07:49:45.738000000-00:00",
+            :active 1}]
+clj꞉tuan-codingapp-clj.handler꞉> 
+[#:customer{:customer_id 4,
+            :first_name "Barbara",
+            :last_name "Jones",
+            :email "barbara.jones@sakilacustomer.org",
+            :activebool true,
+            :create_date #inst "2006-02-13T17:00:00.000-00:00",
+            :last_update #inst "2013-05-26T07:49:45.738000000-00:00",
+            :active 1}]
+clj꞉tuan-codingapp-clj.handler꞉> 
+; Syntax error compiling at (handler.clj:67:52).
+; Unable to resolve symbol: name-key in this context
+clj꞉tuan-codingapp-clj.handler꞉> 
+#'tuan-codingapp-clj.handler/name-key
+clj꞉tuan-codingapp-clj.handler꞉> 
+#'tuan-codingapp-clj.handler/handle_values
+clj꞉tuan-codingapp-clj.handler꞉> 
+; Syntax error compiling at (handler.clj:58:16).
+; Unable to resolve symbol: ok in this context
+clj꞉tuan-codingapp-clj.handler꞉> 
+#'tuan-codingapp-clj.handler/ok
+clj꞉tuan-codingapp-clj.handler꞉> 
+#'tuan-codingapp-clj.handler/replace-customer
+clj꞉tuan-codingapp-clj.handler꞉> 
+; Execution error (PSQLException) at org.postgresql.core.v3.QueryExecutorImpl/receiveErrorResponse (QueryExecutorImpl.java:2733).
+; ERROR: update or delete on table "customer" violates foreign key constraint "rental_customer_id_fkey" on table "rental"
+;   Detail: Key (customer_id)=(1) is still referenced from table "rental".
+clj꞉tuan-codingapp-clj.handler꞉> 
+[]
+clj꞉tuan-codingapp-clj.handler꞉> 
+[#:customer{:customer_id 603,
+            :first_name "mai",
+            :last_name "tran ngoc",
+            :email "mai.tn@gmail.com",
+            :activebool true,
+            :create_date #inst "2025-01-09T17:00:00.000-00:00",
+            :last_update #inst "2025-01-09T18:13:14.156133000-00:00",
+            :active nil}]
+clj꞉tuan-codingapp-clj.handler꞉> 
+; Execution error (PSQLException) at org.postgresql.core.v3.QueryExecutorImpl/receiveErrorResponse (QueryExecutorImpl.java:2733).
+; ERROR: syntax error at end of input
+;   Position: 22
+clj꞉tuan-codingapp-clj.handler꞉> 
+" WHERE key1 = 'tuan' AND key2 = ' le ngoc ' AND key3 = 1302"
 clj꞉tuan-codingapp-clj.handler꞉> 
