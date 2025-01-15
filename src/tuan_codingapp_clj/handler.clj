@@ -1,9 +1,11 @@
 (ns tuan-codingapp-clj.handler
   (:require [compojure.core :refer :all]
+            [cheshire.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [next.jdbc :as jdbc]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [cheshire.core :as cheshire]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
@@ -28,13 +30,8 @@
                                                  (str (name key) " = " val)
                                                  (str (name key) " = " "'" val "'"))) params)))))
 
-(defn find-customer
-  [ds params]
-  (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_string params))]))
-
 (defn name-key
   [params]
-
   (string/join ", " (map (fn [[k v]]  (str (name k))) params)))
 
 (defn handle_values
@@ -43,8 +40,23 @@
                                        (str v)
                                        (str "'" v "'"))) params)))
 
+;; query function 
+(defn find-customer
+  [ds params]
+  (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_string params))]))
+
 (defn replace-customer
 
   [ds params]
   (jdbc/execute! ds [(str "DELETE FROM customer WHERE customer_id = " (params :customer_id) "; "
                           "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
+
+
+;;test function
+
+(cheshire/generate-string  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"})
+(cheshire/generate-smile  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"})
+(cheshire/generate-stream  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"} 
+                           (clojure.java.io/writer "/tmp/foo"))
+(cheshire/generate-cbor  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"})
+
