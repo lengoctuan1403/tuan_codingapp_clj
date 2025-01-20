@@ -52,11 +52,3 @@
                           "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
 
 
-;;test function
-
-(cheshire/generate-string  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"})
-(cheshire/generate-smile  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"})
-(cheshire/generate-stream  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"} 
-                           (clojure.java.io/writer "/tmp/foo"))
-(cheshire/generate-cbor  {:key1 "tuan" :key2 "lengoc" :key3 "dob" :key4 "14/03"})
-
