@@ -12,3 +12,10 @@
   (testing "not-found route"
     (let [response (app (mock/request :get "/invalid"))]
       (is (= (:status response) 404)))))
+
+
+(defn what-is-my-ip [request]
+  {:status 200
+   :headers {"Content-Type" "text/plain"}
+   :body (:remote-addr request)})
+

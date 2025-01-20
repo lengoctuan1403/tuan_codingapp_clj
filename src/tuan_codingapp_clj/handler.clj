@@ -1,17 +1,12 @@
 (ns tuan-codingapp-clj.handler
   (:require [compojure.core :refer :all]
-            [cheshire.core :refer :all]
+            [cheshire.core :as cheshire]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [next.jdbc :as jdbc]
+            [ring.util.response :as response]
             [clojure.string :as string]
-            [cheshire.core :as cheshire]))
-
-(defroutes app-routes
-  (GET "/" [] "Hello World")
-  (route/not-found "Not Found"))
-(def app
-  (wrap-defaults app-routes site-defaults))
+            [clojure.walk :refer [postwalk]]))
 
 (def db {:dbtype "postgres" :dbname "dvdrental"
          :user "postgres" :password "postgres"
@@ -39,11 +34,12 @@
   (string/join ", " (map (fn [[k v]] (if (number? v)
                                        (str v)
                                        (str "'" v "'"))) params)))
-
 ;; query function 
 (defn find-customer
   [ds params]
   (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_string params))]))
+
+(find-customer ds {})
 
 (defn replace-customer
 
@@ -51,4 +47,25 @@
   (jdbc/execute! ds [(str "DELETE FROM customer WHERE customer_id = " (params :customer_id) "; "
                           "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
 
+(defn ->unqualified-data ;;code anh long cho
+  [data]
+  (postwalk #(if (keyword? %) (keyword (name %)) %) data))
 
+
+(defroutes app-routes
+  (GET "/" [] "<h1>Hello World</h1>")
+  (GET "/customers" [] (->  (find-customer ds {})
+                            ->unqualified-data
+                            (cheshire/generate-string)
+                            (response/response)
+                            (response/content-type "application/json")))
+  (GET "/customers/:id" [id] (-> (find-customer ds {:customer_id id})
+                                 (cheshire/generate-string)
+                                 (response/response)
+                                 (response/content-type "application/json")))
+  (route/not-found "Not Found"))
+
+
+
+(def app
+  (wrap-defaults app-routes site-defaults))
