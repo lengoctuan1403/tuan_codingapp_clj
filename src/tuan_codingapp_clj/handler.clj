@@ -16,7 +16,7 @@
 
 ;; Start
 
-(defn handle_string
+(defn handle_condition
   [params]
   (if (= nil (keys params))
     ""
@@ -24,33 +24,28 @@
                                                (if (number? val)
                                                  (str (name key) " = " val)
                                                  (str (name key) " = " "'" val "'"))) params)))))
-
-(defn name-key
+(defn handle_update
   [params]
-  (string/join ", " (map (fn [[k v]]  (str (name k))) params)))
+  (if (= nil (keys params))
+    ""
+    (str " SET " (string/join " " (map (fn [[key val]]
+                                                 (if (number? val)
+                                                   (str (name key) " = " val)
+                                                   (str (name key) " = " "'" val "'"))) params)))))
 
-(defn handle_values
-  [params]
-  (string/join ", " (map (fn [[k v]] (if (number? v)
-                                       (str v)
-                                       (str "'" v "'"))) params)))
 ;; query function 
 (defn find-customer
   [ds params]
-  (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_string params))]))
+  (jdbc/execute! ds [(str "SELECT * FROM customer " (handle_condition params))]))
 
-(find-customer ds {})
+(defn update-customer
+  [ds set-parmas cond-params]
+  (jdbc/execute! ds [(str "UPDATE customer " (handle_update set-parmas) (handle_condition cond-params))]))
 
-(defn replace-customer
-
-  [ds params]
-  (jdbc/execute! ds [(str "DELETE FROM customer WHERE customer_id = " (params :customer_id) "; "
-                          "INSERT INTO customer (" (name-key params) ") VALUES ( " (handle_values params) ")")]))
 
 (defn ->unqualified-data ;;code anh long cho
   [data]
   (postwalk #(if (keyword? %) (keyword (name %)) %) data))
-
 
 (defroutes app-routes
   (GET "/" [] "<h1>Hello World</h1>")
